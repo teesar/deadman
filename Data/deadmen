@@ -1,0 +1,8 @@
+#!/bin/bash
+systemctl enable --now generate-index.timer
+systemctl enable --now generate-index.service
+systemctl disable --now deadman@.timer
+RELEASE=$(date -d "+7 days" "+%Y-%m-%d")
+systemctl enable --now deadman@"$RELEASE".timer
+echo "7" > /var/lib/webgen/bin/days-remaining.txt
+/var/lib/webgen/bin/generate_index

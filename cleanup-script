@@ -1,0 +1,19 @@
+#!/bin/bash
+
+systemctl stop nginx
+systemctl stop ufw
+systemctl disable nginx
+systemctl disable ufw
+pacman -Rns --noconfirm nginx ufw
+rm -rf /etc/nginx
+rm -rf /var/lib/nginx
+pkill -9 keyboxd
+pkill -9 gpg-agent
+userdel -r webgen
+rm -rf /etc/systemd/system/generate-index.timer
+rm -rf /etc/systemd/system/generate-index.service
+rm -rf /etc/systemd/system/deadman.timer
+rm -rf /etc/systemd/system/deadman.service
+rm -rf /etc/systemd/system/deadman@.timer
+systemctl daemon-reload
+

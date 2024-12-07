@@ -1,0 +1,45 @@
+#!/bin/bash
+export GPG_TTY=$(tty)
+unset HISTFILE
+OUTPUT_DIR="/var/lib/webgen"
+#OUTPUT_DIR="/etc"
+OUTPUT_FILE="$OUTPUT_DIR/.msmtprc"
+#OUTPUT_FILE="$OUTPUT_DIR/msmtprc"
+OUTPUT_LOG="$OUTPUT_DIR/.msmtp.log"
+PROCEED=false
+
+pacman -Syu --noconfirm
+pacman -S msmtp --noconfirm
+
+echo "Please enter your personal email address"
+read pemail
+echo "Please enter your SMTP2GO username"
+read username
+read -s -p "Please enter your SMTP2GO password " password
+echo
+echo "Please enter the email you wish to send from"
+read email
+
+gpg --full-generate-key
+echo "$password" | gpg --encrypt -o "/var/lib/webgen/.msmtp-password.gpg" -r "$pemail" -
+
+cat <<EOF > "$OUTPUT_FILE"
+defaults
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile "$OUTPUT_LOG"
+
+account default
+host mail.smtp2go.com
+port 587
+auth on
+user "$username"
+passwordeval "gpg --quiet --for-your-eyes-only --no-tty --decrypt /var/lib/webgen/.msmtp-password.gpg"
+from "$email"
+EOF
+chmod +x /var/lib/webgen/.msmtprc
+cp /var/lib/webgen/.msmtprc /etc/msmtprc
+HISTFILE=~/.bash_history
+
+
+

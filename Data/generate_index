@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# this is the generate_index script
+# you shouldn't have to edit this script
+
+# Variables
+
+OUTPUT_DIR="/var/lib/webgen/HTML"
+OUTPUT_FILE="$OUTPUT_DIR/index.html"
+DAY_FILE="/var/lib/webgen/bin/days-remaining.txt"
+DAYS_LEFT=$(cat $DAY_FILE)
+
+# Ensure the target directory exists
+if [[ ! -d "$OUTPUT_DIR" ]]; then
+    echo "Error: Failed to create or access directory $OUTPUT_DIR." >&2
+    exit 1
+fi
+
+# Create the index.html file
+cat <<EOF > "$OUTPUT_FILE"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+    body {
+    background-image:  url('code.gif');
+    background-size:auto;
+    background-position: center;
+}
+
+    </style>
+</head>
+<body>
+    <h1>${DAYS_LEFT} DAYS REMAIN</h1>
+</body>
+</html>
+EOF
+if [ "$DAYS_LEFT" -gt 0 ]; then
+	DAYS_LEFT=$((DAYS_LEFT - 1))
+fi
+echo "$DAYS_LEFT" > $DAY_FILE
+
+# Check if the file was created successfully
+if [ $? -eq 0 ]; then
+    echo "Success: File created at $OUTPUT_FILE."
+else
+    echo "Error: Failed to create the file at $OUTPUT_FILE." >&2
+    exit 1
+fi

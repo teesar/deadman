@@ -1,0 +1,8 @@
+[Unit]
+Description=Dead men tell tales after 1 week
+
+[Timer]
+OnCalendar=%i
+
+[Install]
+WantedBy=timers.target
