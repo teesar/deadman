@@ -3,6 +3,7 @@ Description=Dead men tell tales after 1 week
 
 [Timer]
 OnCalendar=%i
+Unit=deadman.service
 
 [Install]
 WantedBy=timers.target
