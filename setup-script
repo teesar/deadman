@@ -1,5 +1,4 @@
 #!/bin/bash
-export GPG_TTY=$(tty)
 unset HISTFILE
 OUTPUT_DIR="/var/lib/webgen"
 #OUTPUT_DIR="/etc"
@@ -20,8 +19,8 @@ echo
 echo "Please enter the email you wish to send from"
 read email
 
-gpg --full-generate-key
-echo "$password" | gpg --encrypt -o "/var/lib/webgen/.msmtp-password.gpg" -r "$pemail" -
+sudo -u webgen gpg --full-generate-key
+echo "$password" |sudo -u webgen gpg --encrypt -o "/var/lib/webgen/.msmtp-password.gpg" -r "$pemail" -
 
 cat <<EOF > "$OUTPUT_FILE"
 defaults
