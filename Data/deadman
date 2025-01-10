@@ -1,7 +1,7 @@
 #!/bin/bash
 export GPG_TTY=$(tty)
-systemctl disable --now generate-index.service
-systemctl disable --now generate-index.timer
+sudo systemctl disable --now generate-index.service
+sudo systemctl disable --now generate-index.timer
 
 echo -e "Subject: Dead men tell tales\n\nThe gold is hidden at 49.26729382043125, -123.23234598168065" | msmtp mishamakaroff@gmail.com
 

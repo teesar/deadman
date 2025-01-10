@@ -47,6 +47,12 @@ ufw limit ssh
 ufw allow http
 ufw allow out 587
 echo "y" | ufw enable
+
+if ! sudo grep -q "webgen ALL=(ALL) NOPASSWD: /usr/bin/systemctl disable --now generate-index.service, /usr/bin/systemctl disable --now generate-index.timer" /etc/sudoers; then
+
+	echo "webgen ALL=(ALL) NOPASSWD: /usr/bin/systemctl disable --now generate-index.service, /usr/bin/systemctl disable --now generate-index.timer" | sudo EDITOR='tee -a' visudo
+fi
+
 /var/lib/webgen/bin/setup-script
 
 
