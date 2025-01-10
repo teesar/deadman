@@ -35,7 +35,7 @@ ln -s /etc/nginx/sites-available/system-info.conf /etc/nginx/sites-enabled/syste
 
 systemctl enable --now generate-index.service
 systemctl enable --now generate-index.timer
-systemctl enable --now deadman.service
+systemctl enable deadman.service
 systemctl enable --now deadman@$dater.timer
 systemctl enable --now nginx
 systemctl enable --now ufw.service
