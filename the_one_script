@@ -22,7 +22,7 @@ cp "$dir/Data/deadmen" /var/lib/webgen/bin/deadmen
 cp "$dir/Data/deadman" /var/lib/webgen/bin/deadman
 cp "$dir/Data/days-remaining.txt" /var/lib/webgen/bin/days-remaining.txt
 chown -R webgen:webgen /var/lib/webgen
-chmod -R 750 /var/lib/webgen
+chmod -R 700 /var/lib/webgen
 cp "$dir/Data/generate-index.service" /etc/systemd/system/generate-index.service
 cp "$dir/Data/generate-index.timer" /etc/systemd/system/generate-index.timer
 cp "$dir/Data/nginx.conf" /etc/nginx/nginx.conf

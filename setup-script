@@ -38,6 +38,7 @@ from "$email"
 EOF
 chmod +x /var/lib/webgen/.msmtprc
 cp /var/lib/webgen/.msmtprc /etc/msmtprc
+
 HISTFILE=~/.bash_history
 
 
